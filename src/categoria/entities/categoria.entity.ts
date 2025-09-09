@@ -9,11 +9,11 @@ export class Categoria {
 
     @IsNotEmpty()
     @Column({ length: 100, nullable: false })
-    titulo: string
+    nome: string
 
     @IsNotEmpty()
     @Column({ length: 1000, nullable: false })
-    texto: string
+    descricao: string
 
     @UpdateDateColumn()
     data: Date

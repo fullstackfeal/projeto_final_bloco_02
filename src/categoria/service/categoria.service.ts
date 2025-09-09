@@ -6,12 +6,6 @@ import { DeleteResult } from "typeorm/browser";
 
 @Injectable()
 export class CategoriaService {
-    findAllByNome(nome: string): Promise<Categoria[]> {
-        throw new Error("Method not implemented.");
-    }
-    find(arg0: { where: { titulo: FindOperator<string>; }; }): Categoria[] | PromiseLike<Categoria[]> {
-        throw new Error("Method not implemented.");
-    }
 
     constructor(
         @InjectRepository(Categoria)
@@ -35,10 +29,18 @@ export class CategoriaService {
         return categoria;
     }
 
-    async findAllByTitulo(titulo: string): Promise<Categoria[]> {
+    async findAllByNome(nome: string): Promise<Categoria[]> {
+        return await this.categoriaRepository.find({
+            where: { nome: ILike(`%${nome}%`) }
+        });
+    }
+
+
+
+    async findAllByDescricao(descricao: string): Promise<Categoria[]> {
         return await this.categoriaRepository.find({
             where: {
-                titulo: ILike(`%${titulo}%`)
+                descricao: ILike(`%${descricao}%`)
             }
         })
     }
